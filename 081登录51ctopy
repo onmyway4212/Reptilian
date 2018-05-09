@@ -1,0 +1,15 @@
+import requests
+from bs4 import BeautifulSoup
+
+params = {'LoginForm[username]': '88186161@qq.com', 'LoginForm[password]': 'zh123456'}
+r = requests.post('http://home.51cto.com/index?reback=http://www.51cto.com/', data=params)
+
+bsobj = BeautifulSoup(r.text, 'lxml')
+
+#<div class="zxfWechat">
+#<div class="port_m_box right position_r">
+#<input type="text" id="loginform-username" class="form-control" name="LoginForm[username]" placeholder="用户名/邮箱/手机">
+#<input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" placeholder="密码">
+
+target = bsobj.find('div', {'class': 'zxfWechat'})
+print(target)

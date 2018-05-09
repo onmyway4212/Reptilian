@@ -1,0 +1,11 @@
+from urllib.request import urlopen
+from io import StringIO
+import csv
+data = urlopen('http://pythonscraping.com/files/MontyPythonAlbums.csv').read().decode('ascii', 'ignore')
+dataFile = StringIO(data)                       #StringIO顾名思义就是在内存中读写str
+
+dictReader = csv.DictReader(dataFile)            #csv.DictReader把csv中的每一行转换成字典对象返回
+#print(dictReader.fieldnames)                    #字断列表保存在dictReader.fieldnames里
+
+for row in dictReader:
+    print(row)
