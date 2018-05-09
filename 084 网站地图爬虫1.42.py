@@ -21,25 +21,10 @@ def download(url, user_agent='wswp', num_retries=2):
     return html
 
 
-'''
 def crawl_sitemap(url):
     sitemap = download(url)
     links = re.findall(r'<loc>(.*?)</loc>', sitemap)
     for link in links:
         html = download(link)
-'''
 
-
-max_errors =5
-num_errors = 0
-
-for page in itertools.count(1):
-    url = 'http://127.0.0.1:8000/places/default/view/-%d' % page
-    html = download(url)
-    if html is None:
-        num_errors +=1
-        if num_errors == max_errors:
-            break
-    else:
-        num_errors = 0
-    time.sleep(1)
+crawl_sitemap('http://127.0.0.1:8000/places/default/sitemap.xml')
