@@ -20,4 +20,4 @@ def getlinks(pageurl):
             getlinks(newpage)
 
 getlinks("")
-#findAll('td', {'class': 'subject'})
+
