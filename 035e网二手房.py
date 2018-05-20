@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 import re
 
+
 def get_data():
     list1=[]
     global url1
@@ -34,5 +35,4 @@ def main():
 
 if __name__=='__main__':
     main()
-
 
