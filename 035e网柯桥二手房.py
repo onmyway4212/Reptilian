@@ -3,29 +3,36 @@ from bs4 import BeautifulSoup
 import csv
 import re
 
-i = 1
 
-
-with open('C:/Users/Administrator/Desktop/柯桥二手房.csv','w',encoding='utf-8') as f:
-
-    while i < 15:
+def get_data():
+    list1=[]
+    global url1
+    for i in range(15):
         url1 = 'https://kqfc.e0575.com/'
         url2 = 'list.php?tix=1&page='
         url = url1 + url2 + str(i)
         html = urlopen(url)
         bsobj = BeautifulSoup(html, 'lxml')
+        list1.append(bsobj)
+    return list1
 
-        for item in bsobj.findAll('div', {'class': 'con1'}):
-            for sj in item('p', {'class': 'p3'}):
-                print(item.a.text)
-                print(item.p.get_text())
-                print(item.div.em.get_text())
-                print(sj.text)
-                print(url1 + item.a['href'])
-                f.write("{}, {}, {}, {}\n {}\n\n".format(item.a.text, item.p.get_text(), item.div.em.get_text(), sj.text, url1+item.a['href']))
 
-        i+=1
+def main():
+    a=0
+    with open('C:/Users/Administrator/Desktop/柯桥二手房.csv', 'w', encoding='utf-8') as f:
+        for t in get_data():
+            for item in t.findAll('div', {'class': 'con1'}):
+                for sj in item('p', {'class': 'p3'}):
+                    print(item.a.text)
+                    print(item.p.get_text())
+                    print(item.div.em.get_text())
+                    print(sj.text)
+                    print(url1 + item.a['href'])
+                    f.write("{}, {}, {}, {}\n {}\n\n".format(item.a.text, item.p.get_text(), item.div.em.get_text(), sj.text,
+                                                            url1 + item.a['href']))
+                    a+=1
+    print('一共保存了%d条数据!!!' %a)
 
-f.close()
-# https://kqfc.e0575.com/show.php?nId=7354426
-# https://kqfc.e0575.com/list.php?tix=1&page=2
+
+if __name__=='__main__':
+    main()
